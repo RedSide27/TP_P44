@@ -10,4 +10,8 @@
         Etudiant.MdiParent = Me
         Etudiant.Show()
     End Sub
+
+    Private Sub frmMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

@@ -2,6 +2,8 @@
 Public Class frmEtudiants
     Dim cn As SqlConnection
     Dim comEtu As SqlCommand
+    Dim comSup As SqlCommand
+    Dim comAjout As SqlCommand
     Dim dr As SqlDataReader
     Dim Action As String
     Private Sub cmdNouveau_Click(sender As Object, e As EventArgs) Handles cmdNouveau.Click
@@ -10,6 +12,7 @@ Public Class frmEtudiants
         Debarrer({cmdAnnuler, cmdOK, grpEtudiants})
         Vider_Ecran()
         txtNo.Focus()
+        Action = "AJOUT"
     End Sub
 
     Private Sub Barrer(ctrl() As Control)
@@ -110,6 +113,9 @@ Public Class frmEtudiants
             Modifier_Eleve()
             Barrer({cmdAnnuler, cmdOK, grpEtudiants})
             Debarrer({lvEtudiants, cmdNouveau, cmdEnlever, cmdModifier})
+        ElseIf Action = "AJOUT" Then
+            Ajouter_Eleve()
+
         End If
         Action = ""
 
@@ -160,7 +166,24 @@ Public Class frmEtudiants
             'Fermer le DR
             dr.Close()
         Catch ex As SqlException
-            MsgBox(ex.Number & " " & ex.Message)
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -260,10 +283,150 @@ Public Class frmEtudiants
             lvEtudiants.SelectedIndices.Add(no)
 
         Catch ex As SqlException
-            MsgBox(ex.Number & " " & ex.Message)
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
+    End Sub
+
+    Private Sub cmdEnlever_Click(sender As Object, e As EventArgs) Handles cmdEnlever.Click
+        If MsgBox("êtes-vous sur de vouloir supprimer le programme ?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
+            Supprimer_Eleve()
+        End If
+    End Sub
+    ' Supprime le Programme Selectionner
+    Public Sub Supprimer_Eleve()
+        Try
+            comSup = New SqlCommand()
+            With comSup
+                .CommandText = "DELETE FROM T_etudiants WHERE etu_da = @da"
+                .CommandType = CommandType.Text
+                .Connection = cn
+                .Parameters.Add("@da", SqlDbType.VarChar, 7).Value = txtNo.Text.Trim
+            End With
+
+            If comSup.ExecuteNonQuery > 0 Then
+                MsgBox("Élève Supprimer Avec Succès")
+                Remplir_Etu()
+
+                If lvEtudiants.SelectedIndices.Count > 0 Then
+                    lvEtudiants.SelectedIndices.Add(0)
+                End If
+            Else
+                MsgBox("Aucun Élève de supprimer")
+            End If
+
+
+        Catch ex As SqlException
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Ajouter_Eleve()
+        Try
+            If txtNo.Text = "" Or txtNom.Text = "" Or txtProg.Text = "" Or txtPrenom.Text = "" Or txtAdresse.Text = "" Or txtVille.Text = "" Or mskCp.Text = "" Or mskTel.Text = "" Or (optFeminin.Checked = False And optMasculin.Checked = False) Then
+                MsgBox("Champs Manquant")
+                txtNo.Focus()
+            End If
+
+            comAjout = New SqlCommand()
+            With comAjout
+                .CommandText = "INSERT INTO T_etudiants (etu_da,pro_no,etu_nom,etu_prenom,etu_sexe,etu_adresse,etu_ville,etu_province,etu_telephone,etu_codepostal) values (@da,@prog,@nom,@prenom,@sexe,@adr,@ville,@prov,@tel,@cp)"
+                .CommandType = CommandType.Text
+                .Connection = cn
+                .Parameters.Add("@da", SqlDbType.VarChar, 7).Value = txtNo.Text.Trim
+                .Parameters.Add("@prog", SqlDbType.VarChar, 6).Value = txtProg.Text.Trim
+                .Parameters.Add("@nom", SqlDbType.VarChar, 20).Value = txtNom.Text.Trim
+                .Parameters.Add("@prenom", SqlDbType.VarChar, 20).Value = txtPrenom.Text.Trim
+                If optFeminin.Checked = True Then
+                    .Parameters.Add("@sexe", SqlDbType.Char).Value = "F"
+                Else
+                    .Parameters.Add("@sexe", SqlDbType.Char).Value = "M"
+                End If
+                .Parameters.Add("@adr", SqlDbType.VarChar, 100).Value = txtAdresse.Text.Trim
+                .Parameters.Add("@ville", SqlDbType.VarChar, 50).Value = txtVille.Text.Trim
+                .Parameters.Add("@prov", SqlDbType.VarChar, 50).Value = cboProvince.SelectedText
+                .Parameters.Add("@tel", SqlDbType.VarChar, 14).Value = mskTel.Text
+                .Parameters.Add("@cp", SqlDbType.VarChar, 7).Value = mskCp.Text.Trim
+
+            End With
+
+            ' Executer la requete
+            comAjout.ExecuteNonQuery()
+            MsgBox("Élève Ajouter Avec Succès")
+            Remplir_Etu()
+            lvEtudiants.SelectedIndices.Add(lvEtudiants.Items.Count - 1)
+
+        Catch ex As SqlException
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub txtPrenom_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtVille.KeyPress, txtPrenom.KeyPress, txtNom.KeyPress, txtAdresse.KeyPress
+        e.Handled = Char.IsDigit(e.KeyChar)
+    End Sub
+
+    Private Sub txtNo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNo.KeyPress
+        If Asc(e.KeyChar) <> 8 Then
+            If Asc(e.KeyChar) < 48 Or Asc(e.KeyChar) > 57 Then
+                e.Handled = True
+            End If
+        End If
     End Sub
 End Class

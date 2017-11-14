@@ -30,6 +30,8 @@ Partial Class frmEtudiants
         Me.cmdOK = New System.Windows.Forms.Button()
         Me.cmdNouveau = New System.Windows.Forms.Button()
         Me.grpEtudiants = New System.Windows.Forms.GroupBox()
+        Me.mskTel = New System.Windows.Forms.MaskedTextBox()
+        Me.mskCp = New System.Windows.Forms.MaskedTextBox()
         Me.txtProg = New System.Windows.Forms.TextBox()
         Me.lblTelephone = New System.Windows.Forms.Label()
         Me.lblCodePostal = New System.Windows.Forms.Label()
@@ -61,8 +63,6 @@ Partial Class frmEtudiants
         Me.colTelephone = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colProvince = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.err1 = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.mskCp = New System.Windows.Forms.MaskedTextBox()
-        Me.mskTel = New System.Windows.Forms.MaskedTextBox()
         Me.grpEtudiants.SuspendLayout()
         Me.grpSexe.SuspendLayout()
         CType(Me.err1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -73,7 +73,7 @@ Partial Class frmEtudiants
         Me.cmdEnlever.Location = New System.Drawing.Point(1186, 163)
         Me.cmdEnlever.Name = "cmdEnlever"
         Me.cmdEnlever.Size = New System.Drawing.Size(134, 30)
-        Me.cmdEnlever.TabIndex = 11
+        Me.cmdEnlever.TabIndex = 16
         Me.cmdEnlever.Text = "Enlever"
         Me.cmdEnlever.UseVisualStyleBackColor = True
         '
@@ -82,7 +82,7 @@ Partial Class frmEtudiants
         Me.cmdModifier.Location = New System.Drawing.Point(1186, 127)
         Me.cmdModifier.Name = "cmdModifier"
         Me.cmdModifier.Size = New System.Drawing.Size(134, 30)
-        Me.cmdModifier.TabIndex = 10
+        Me.cmdModifier.TabIndex = 14
         Me.cmdModifier.Text = "Modifier"
         Me.cmdModifier.UseVisualStyleBackColor = True
         '
@@ -92,7 +92,7 @@ Partial Class frmEtudiants
         Me.cmdAnnuler.Location = New System.Drawing.Point(1186, 91)
         Me.cmdAnnuler.Name = "cmdAnnuler"
         Me.cmdAnnuler.Size = New System.Drawing.Size(134, 30)
-        Me.cmdAnnuler.TabIndex = 9
+        Me.cmdAnnuler.TabIndex = 13
         Me.cmdAnnuler.Text = "Annuler"
         Me.cmdAnnuler.UseVisualStyleBackColor = True
         '
@@ -102,7 +102,7 @@ Partial Class frmEtudiants
         Me.cmdOK.Location = New System.Drawing.Point(1186, 55)
         Me.cmdOK.Name = "cmdOK"
         Me.cmdOK.Size = New System.Drawing.Size(134, 30)
-        Me.cmdOK.TabIndex = 8
+        Me.cmdOK.TabIndex = 12
         Me.cmdOK.Text = "OK"
         Me.cmdOK.UseVisualStyleBackColor = True
         '
@@ -111,7 +111,7 @@ Partial Class frmEtudiants
         Me.cmdNouveau.Location = New System.Drawing.Point(1186, 19)
         Me.cmdNouveau.Name = "cmdNouveau"
         Me.cmdNouveau.Size = New System.Drawing.Size(134, 30)
-        Me.cmdNouveau.TabIndex = 7
+        Me.cmdNouveau.TabIndex = 11
         Me.cmdNouveau.Text = "Nouveau"
         Me.cmdNouveau.UseVisualStyleBackColor = True
         '
@@ -144,12 +144,28 @@ Partial Class frmEtudiants
         Me.grpEtudiants.TabStop = False
         Me.grpEtudiants.Text = "Étudiants"
         '
+        'mskTel
+        '
+        Me.mskTel.Location = New System.Drawing.Point(541, 196)
+        Me.mskTel.Mask = "(000) 000-0000"
+        Me.mskTel.Name = "mskTel"
+        Me.mskTel.Size = New System.Drawing.Size(141, 29)
+        Me.mskTel.TabIndex = 10
+        '
+        'mskCp
+        '
+        Me.mskCp.Location = New System.Drawing.Point(541, 161)
+        Me.mskCp.Mask = "L0L-0L0"
+        Me.mskCp.Name = "mskCp"
+        Me.mskCp.Size = New System.Drawing.Size(91, 29)
+        Me.mskCp.TabIndex = 9
+        '
         'txtProg
         '
         Me.txtProg.Location = New System.Drawing.Point(146, 86)
         Me.txtProg.Name = "txtProg"
         Me.txtProg.Size = New System.Drawing.Size(126, 29)
-        Me.txtProg.TabIndex = 8
+        Me.txtProg.TabIndex = 2
         '
         'lblTelephone
         '
@@ -176,7 +192,7 @@ Partial Class frmEtudiants
         Me.cboProvince.Location = New System.Drawing.Point(541, 122)
         Me.cboProvince.Name = "cboProvince"
         Me.cboProvince.Size = New System.Drawing.Size(255, 30)
-        Me.cboProvince.TabIndex = 17
+        Me.cboProvince.TabIndex = 8
         '
         'lblProvince
         '
@@ -192,7 +208,7 @@ Partial Class frmEtudiants
         Me.txtAdresse.Location = New System.Drawing.Point(541, 41)
         Me.txtAdresse.Name = "txtAdresse"
         Me.txtAdresse.Size = New System.Drawing.Size(362, 29)
-        Me.txtAdresse.TabIndex = 15
+        Me.txtAdresse.TabIndex = 6
         '
         'lblAdresse
         '
@@ -208,7 +224,7 @@ Partial Class frmEtudiants
         Me.txtVille.Location = New System.Drawing.Point(541, 82)
         Me.txtVille.Name = "txtVille"
         Me.txtVille.Size = New System.Drawing.Size(300, 29)
-        Me.txtVille.TabIndex = 13
+        Me.txtVille.TabIndex = 7
         '
         'lblVille
         '
@@ -226,7 +242,7 @@ Partial Class frmEtudiants
         Me.grpSexe.Location = New System.Drawing.Point(146, 194)
         Me.grpSexe.Name = "grpSexe"
         Me.grpSexe.Size = New System.Drawing.Size(157, 117)
-        Me.grpSexe.TabIndex = 11
+        Me.grpSexe.TabIndex = 5
         Me.grpSexe.TabStop = False
         Me.grpSexe.Text = "Sexe"
         '
@@ -257,7 +273,7 @@ Partial Class frmEtudiants
         Me.txtPrenom.Location = New System.Drawing.Point(146, 121)
         Me.txtPrenom.Name = "txtPrenom"
         Me.txtPrenom.Size = New System.Drawing.Size(255, 29)
-        Me.txtPrenom.TabIndex = 10
+        Me.txtPrenom.TabIndex = 3
         '
         'lblPrenom
         '
@@ -282,14 +298,14 @@ Partial Class frmEtudiants
         Me.txtNom.Location = New System.Drawing.Point(146, 154)
         Me.txtNom.Name = "txtNom"
         Me.txtNom.Size = New System.Drawing.Size(255, 29)
-        Me.txtNom.TabIndex = 6
+        Me.txtNom.TabIndex = 4
         '
         'txtNo
         '
         Me.txtNo.Location = New System.Drawing.Point(146, 43)
         Me.txtNo.Name = "txtNo"
         Me.txtNo.Size = New System.Drawing.Size(126, 29)
-        Me.txtNo.TabIndex = 5
+        Me.txtNo.TabIndex = 1
         '
         'lblNom
         '
@@ -374,22 +390,6 @@ Partial Class frmEtudiants
         '
         Me.err1.ContainerControl = Me
         '
-        'mskCp
-        '
-        Me.mskCp.Location = New System.Drawing.Point(541, 161)
-        Me.mskCp.Mask = "L0L-0L0"
-        Me.mskCp.Name = "mskCp"
-        Me.mskCp.Size = New System.Drawing.Size(91, 29)
-        Me.mskCp.TabIndex = 21
-        '
-        'mskTel
-        '
-        Me.mskTel.Location = New System.Drawing.Point(541, 196)
-        Me.mskTel.Mask = "(000) 000-0000"
-        Me.mskTel.Name = "mskTel"
-        Me.mskTel.Size = New System.Drawing.Size(141, 29)
-        Me.mskTel.TabIndex = 22
-        '
         'frmEtudiants
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 22.0!)
@@ -456,8 +456,8 @@ Partial Class frmEtudiants
     Friend WithEvents colCodePostal As ColumnHeader
     Friend WithEvents colTelephone As ColumnHeader
     Friend WithEvents colProvince As ColumnHeader
-    Friend WithEvents err1 As ErrorProvider
     Friend WithEvents txtProg As TextBox
     Friend WithEvents mskTel As MaskedTextBox
     Friend WithEvents mskCp As MaskedTextBox
+    Friend WithEvents err1 As ErrorProvider
 End Class

@@ -55,24 +55,24 @@ Partial Class frmMenu
         'ProgrammesToolStripMenuItem
         '
         Me.ProgrammesToolStripMenuItem.Name = "ProgrammesToolStripMenuItem"
-        Me.ProgrammesToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ProgrammesToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
         Me.ProgrammesToolStripMenuItem.Text = "Programmes"
         '
         'ÉtudiantsToolStripMenuItem
         '
         Me.ÉtudiantsToolStripMenuItem.Name = "ÉtudiantsToolStripMenuItem"
-        Me.ÉtudiantsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ÉtudiantsToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
         Me.ÉtudiantsToolStripMenuItem.Text = "Étudiants"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(139, 6)
         '
         'QuitterToolStripMenuItem
         '
         Me.QuitterToolStripMenuItem.Name = "QuitterToolStripMenuItem"
-        Me.QuitterToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.QuitterToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
         Me.QuitterToolStripMenuItem.Text = "Quitter"
         '
         'RapportToolStripMenuItem

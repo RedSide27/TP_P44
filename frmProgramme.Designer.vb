@@ -22,22 +22,12 @@ Partial Class frmProgramme
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-<<<<<<< HEAD
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmProgramme))
-        Me.grpProgramme = New System.Windows.Forms.GroupBox()
-        Me.txtNbrHeure = New System.Windows.Forms.TextBox()
-        Me.txtNbrUnites = New System.Windows.Forms.TextBox()
-        Me.txtNom = New System.Windows.Forms.TextBox()
-        Me.txtNo = New System.Windows.Forms.TextBox()
-=======
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmProgramme))
         Me.grpProgramme = New System.Windows.Forms.GroupBox()
-        Me.txtno = New System.Windows.Forms.MaskedTextBox()
         Me.txtNbrHeure = New System.Windows.Forms.TextBox()
         Me.txtNbrUnites = New System.Windows.Forms.TextBox()
         Me.txtNom = New System.Windows.Forms.TextBox()
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
         Me.lblNbrHeure = New System.Windows.Forms.Label()
         Me.lblNbrUnite = New System.Windows.Forms.Label()
         Me.lblNom = New System.Windows.Forms.Label()
@@ -58,28 +48,18 @@ Partial Class frmProgramme
         Me.colNoProg = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colPrenom = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colNomEtu = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-<<<<<<< HEAD
-        Me.grpProgramme.SuspendLayout()
-=======
         Me.Err1 = New System.Windows.Forms.ErrorProvider(Me.components)
+        Me.txtno = New System.Windows.Forms.MaskedTextBox()
         Me.grpProgramme.SuspendLayout()
         CType(Me.Err1, System.ComponentModel.ISupportInitialize).BeginInit()
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
         Me.SuspendLayout()
         '
         'grpProgramme
         '
-<<<<<<< HEAD
-        Me.grpProgramme.Controls.Add(Me.txtNbrHeure)
-        Me.grpProgramme.Controls.Add(Me.txtNbrUnites)
-        Me.grpProgramme.Controls.Add(Me.txtNom)
-        Me.grpProgramme.Controls.Add(Me.txtNo)
-=======
         Me.grpProgramme.Controls.Add(Me.txtno)
         Me.grpProgramme.Controls.Add(Me.txtNbrHeure)
         Me.grpProgramme.Controls.Add(Me.txtNbrUnites)
         Me.grpProgramme.Controls.Add(Me.txtNom)
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
         Me.grpProgramme.Controls.Add(Me.lblNbrHeure)
         Me.grpProgramme.Controls.Add(Me.lblNbrUnite)
         Me.grpProgramme.Controls.Add(Me.lblNom)
@@ -92,17 +72,6 @@ Partial Class frmProgramme
         Me.grpProgramme.TabStop = False
         Me.grpProgramme.Text = "Programme"
         '
-<<<<<<< HEAD
-=======
-        'txtno
-        '
-        Me.txtno.Location = New System.Drawing.Point(146, 43)
-        Me.txtno.Mask = "LLL.0L"
-        Me.txtno.Name = "txtno"
-        Me.txtno.Size = New System.Drawing.Size(126, 29)
-        Me.txtno.TabIndex = 0
-        '
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
         'txtNbrHeure
         '
         Me.txtNbrHeure.Location = New System.Drawing.Point(146, 168)
@@ -124,16 +93,6 @@ Partial Class frmProgramme
         Me.txtNom.Size = New System.Drawing.Size(255, 29)
         Me.txtNom.TabIndex = 6
         '
-<<<<<<< HEAD
-        'txtNo
-        '
-        Me.txtNo.Location = New System.Drawing.Point(146, 43)
-        Me.txtNo.Name = "txtNo"
-        Me.txtNo.Size = New System.Drawing.Size(126, 29)
-        Me.txtNo.TabIndex = 5
-        '
-=======
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
         'lblNbrHeure
         '
         Me.lblNbrHeure.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -292,13 +251,18 @@ Partial Class frmProgramme
         Me.colNomEtu.Text = "Nom"
         Me.colNomEtu.Width = 200
         '
-<<<<<<< HEAD
-=======
         'Err1
         '
         Me.Err1.ContainerControl = Me
         '
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
+        'txtno
+        '
+        Me.txtno.Location = New System.Drawing.Point(146, 43)
+        Me.txtno.Mask = "LLL.0L"
+        Me.txtno.Name = "txtno"
+        Me.txtno.Size = New System.Drawing.Size(126, 29)
+        Me.txtno.TabIndex = 9
+        '
         'frmProgramme
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 22.0!)
@@ -321,10 +285,7 @@ Partial Class frmProgramme
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.grpProgramme.ResumeLayout(False)
         Me.grpProgramme.PerformLayout()
-<<<<<<< HEAD
-=======
         CType(Me.Err1, System.ComponentModel.ISupportInitialize).EndInit()
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
         Me.ResumeLayout(False)
 
     End Sub
@@ -333,10 +294,6 @@ Partial Class frmProgramme
     Friend WithEvents txtNbrHeure As TextBox
     Friend WithEvents txtNbrUnites As TextBox
     Friend WithEvents txtNom As TextBox
-<<<<<<< HEAD
-    Friend WithEvents txtNo As TextBox
-=======
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
     Friend WithEvents lblNbrHeure As Label
     Friend WithEvents lblNbrUnite As Label
     Friend WithEvents lblNom As Label
@@ -357,9 +314,7 @@ Partial Class frmProgramme
     Friend WithEvents colPrenom As ColumnHeader
     Friend WithEvents colNomEtu As ColumnHeader
     Friend WithEvents Button1 As Button
-<<<<<<< HEAD
-=======
-    Friend WithEvents txtno As MaskedTextBox
+    'Friend WithEvents txtno As MaskedTextBox
     Friend WithEvents Err1 As ErrorProvider
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
+    Friend WithEvents txtno As MaskedTextBox
 End Class

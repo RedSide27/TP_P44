@@ -1,4 +1,12 @@
-﻿Imports System.Data.SqlClient 'Import pour utiliser SQL
+﻿' Fait Par : Alexandre Dupont & Olivier Aubé
+' En Date Du : 05/10/17
+' -----------------------
+' Modifier Le : 09/10/17
+' Par : Alexandre Dupont
+' Se Programme Sert a faire la gestion des étudiants ainsi que des programmes d'une école.
+' Vous povez ajouter, supprimer, modifier ainsi que ajouter différent élève ou programme.
+
+Imports System.Data.SqlClient 'Import pour utiliser SQL
 Public Class frmProgramme
     Dim cn As SqlConnection
     Dim comProg, comEtu, comAjout, comModif, comSup As SqlCommand
@@ -46,6 +54,25 @@ Public Class frmProgramme
             If lvProgramme.Items.Count > 0 Then
                 lvProgramme.SelectedIndices.Add(0)
             End If
+        Catch ex As SqlException
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -78,7 +105,24 @@ Public Class frmProgramme
             Loop
             dr.Close()
         Catch ex As SqlException
-            MsgBox(ex.Number & " " & ex.Message)
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -106,7 +150,24 @@ Public Class frmProgramme
             'Fermer le DR
             dr.Close()
         Catch ex As SqlException
-            MsgBox(ex.Number & " " & ex.Message)
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -123,12 +184,12 @@ Public Class frmProgramme
     Private Sub cmdAnnuler_Click(sender As Object, e As EventArgs) Handles cmdAnnuler.Click
         Barrer_Debarrer(False)
         Remplir_Prog("LEA.1A")
-<<<<<<< HEAD
+
         txtNo.Enabled = True
-=======
-        txtno.Enabled = True
+
+        txtNo.Enabled = True
         Err1.Clear()
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
+
     End Sub
 
     Private Sub cmdModifier_Click(sender As Object, e As EventArgs) Handles cmdModifier.Click
@@ -139,10 +200,6 @@ Public Class frmProgramme
     End Sub
 
     Private Sub cmdEnlever_Click(sender As Object, e As EventArgs) Handles cmdEnlever.Click
-<<<<<<< HEAD
-
-=======
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
         If MsgBox("êtes-vous sur de vouloir supprimer le programme ?", MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
             Supprimer_Programme()
         End If
@@ -150,6 +207,22 @@ Public Class frmProgramme
     ' Supprime le Programme Selectionner
     Public Sub Supprimer_Programme()
         Try
+            Dim comNoProg As New SqlCommand()
+
+            With comNoProg
+                .CommandText = "SELECT pro_no FROM T_etudiants WHERE pro_no = @no"
+                .CommandType = CommandType.Text
+                .Connection = cn
+                .Parameters.Add("@no", SqlDbType.VarChar, 6).Value = txtNo.Text.Trim.ToString
+            End With
+            dr = comNoProg.ExecuteReader
+            Do While dr.Read
+                If dr("pro_no") = txtNo.Text.Trim Then
+                    MsgBox("Se Programme ne peut pas être supprimer ,car il contient des étudiants")
+                    Exit Sub
+                End If
+            Loop
+            dr.Close()
             comSup = New SqlCommand()
             With comSup
                 .CommandText = "DELETE FROM T_programme WHERE pro_no = @no"
@@ -165,31 +238,34 @@ Public Class frmProgramme
                     lvProgramme.SelectedIndices.Add(0)
                 End If
             Else
-                MsgBox("Aucun Client de supprimer")
+                MsgBox("Aucun Programme de supprimer")
             End If
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
         Catch ex As SqlException
-            MsgBox(ex.Number & " " & ex.Message)
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
-<<<<<<< HEAD
-    Private Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOK.Click
-        If ACTION = "Ajouter" Then
-            Ajouter_Programme()
-        ElseIf ACTION = "Modifier" Then
-            Modifier_Programme()
-            txtNo.Enabled = True
-        End If
-    End Sub
-    ' Modifie le Programme Selectionner
-=======
     Private Sub txtNom_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNom.KeyPress
         e.Handled = Char.IsDigit(e.KeyChar)
     End Sub
@@ -250,7 +326,6 @@ Public Class frmProgramme
         Return x
     End Function
 
->>>>>>> 97a0065b1def2a6a2b563d1e5e8bcedad5943856
     Private Sub Modifier_Programme()
         Try
             If txtNo.Text = "" Or txtNom.Text = "" Or txtNbrUnites.Text = "" Or txtNbrHeure.Text = "" Then
@@ -263,7 +338,7 @@ Public Class frmProgramme
                 .CommandText = "Update T_programme set pro_nom = @nom, pro_nbr_unites = @nbrUnit, pro_nbr_heures = @nbrHeure WHERE pro_no = @no"
                 .CommandType = CommandType.Text
                 .Connection = cn
-                .Parameters.Add("@no", SqlDbType.VarChar, 6).Value = txtNo.Text.Trim.ToString
+                .Parameters.Add("@no", SqlDbType.VarChar, 6).Value = txtno.Text.Trim.ToUpper.ToString
                 .Parameters.Add("@nom", SqlDbType.VarChar, 50).Value = txtNom.Text.Trim.ToString
                 .Parameters.Add("@nbrUnit", SqlDbType.Float).Value = Convert.ToDecimal(txtNbrUnites.Text.Trim) '<-- si l'utilisateur met un point sa plante
                 .Parameters.Add("@nbrHeure", SqlDbType.Int).Value = CInt(txtNbrHeure.Text.Trim)
@@ -275,7 +350,24 @@ Public Class frmProgramme
             Remplir_LvProgramme()
 
         Catch ex As SqlException
-            MsgBox(ex.Number & " " & ex.Message)
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -293,7 +385,7 @@ Public Class frmProgramme
                 .CommandText = "INSERT INTO T_programme (pro_no,pro_nom,pro_nbr_heures,pro_nbr_unites) values (@no,@nom,@nbrHeure,@nbrUnit)"
                 .CommandType = CommandType.Text
                 .Connection = cn
-                .Parameters.Add("@no", SqlDbType.VarChar, 6).Value = txtNo.Text.Trim.ToString
+                .Parameters.Add("@no", SqlDbType.VarChar, 6).Value = txtno.Text.Trim.ToUpper.ToString
                 .Parameters.Add("@nom", SqlDbType.VarChar, 50).Value = txtNom.Text.Trim.ToString
                 .Parameters.Add("@nbrUnit", SqlDbType.Float).Value = Convert.ToDecimal(txtNbrUnites.Text.Trim) '<-- si l'utilisateur met un point sa plante
                 .Parameters.Add("@nbrHeure", SqlDbType.Int).Value = CInt(txtNbrHeure.Text.Trim)
@@ -306,7 +398,24 @@ Public Class frmProgramme
             lvProgramme.SelectedIndices.Add(lvProgramme.Items.Count - 1)
 
         Catch ex As SqlException
-            MsgBox(ex.Number & " " & ex.Message)
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -342,7 +451,24 @@ Public Class frmProgramme
             'Fermer le DR
             dr.Close()
         Catch ex As SqlException
-            MsgBox(ex.Number & " " & ex.Message)
+            If ex.Number = 2 Then
+                MsgBox("Impossible de se connecter au serveur SQL")
+                End
+            ElseIf ex.Number = 4060 Then
+                MsgBox("DB invalide")
+                End
+            ElseIf ex.Number = 18452 Then
+                MsgBox("Login invalide")
+                End
+            ElseIf ex.Number = 2627 Then
+                MsgBox("Clé primaire invalide car déjâ utilisé")
+            ElseIf ex.Number = 150 Then
+                MsgBox("Les deux termes d'une jointure externe doivent contenir des colonnes.")
+            ElseIf ex.Number = 16929 Then
+                MsgBox("Le curseur est READ ONLY.")
+            Else
+                MsgBox(ex.Number & " " & ex.Message)
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
